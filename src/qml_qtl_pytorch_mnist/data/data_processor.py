@@ -6,32 +6,37 @@ from torchvision import datasets
 
 class DataProcessor:
     """
-    Responsible for downloading RAW data, filtering specific classes (0 and 1),
-    and saving the processed dataset to disk.
+    Handles the ETL process: downloads raw MNIST data, filters it to keep only
+    digits 0 and 1, and saves the processed tensors to disk.
     """
 
     RAW_PATH = "./data/raw"
     PROCESSED_PATH = "./data/results"
 
-    def __init__(self, batch_size=4) -> None:
+    def __init__(self) -> None:
+        """
+        Initializes the processor and ensures the necessary directories exist.
+        """
         os.makedirs(self.RAW_PATH, exist_ok=True)
         os.makedirs(self.PROCESSED_PATH, exist_ok=True)
 
-        self._batch_size = batch_size
-
-    # def get_mnist_loader(self, is_train=False) -> DataLoader:
-    #     dataset = self._get_dataset(is_train=is_train)
-    #     return DataLoader(
-    #         dataset,
-    #         batch_size=self._batch_size,
-    #         shuffle=True,
-    #     )
-
-    def process_and_save(self):
+    def process_and_save(self) -> None:
+        """
+        Downloads the raw dataset, processes both training and test subsets,
+        and saves the filtered data to the processed directory.
+        """
         self._process_subset(is_train=True)
         self._process_subset(is_train=False)
 
-    def _process_subset(self, is_train: bool):
+    def _process_subset(self, is_train: bool) -> None:
+        """
+        Loads the raw subset, filters for labels 0 and 1, and saves the result.
+
+        Args:
+            `is_train`: Boolean indicating whether to process the:
+                - training set (True)
+                - or the test set (False).
+        """
         dataset = datasets.MNIST(
             root=self.RAW_PATH,
             train=is_train,
@@ -48,12 +53,3 @@ class DataProcessor:
             (filtered_data, filtered_targets),
             os.path.join(self.PROCESSED_PATH, filename),
         )
-
-    # def _get_transform(self):
-    #     return transforms.Compose(
-    #         [
-    #             transforms.Resize((4, 4)),
-    #             transforms.ToTensor(),
-    #             transforms.Normalize((0.5,), (0.5,)),
-    #         ]
-    #     )
