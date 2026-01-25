@@ -1,9 +1,10 @@
-import torchvision
-import torchvision.transforms as transforms
+from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
 
 class Data:
+    DATA_PATH = "./data"
+
     def __init__(self, batch_size=64) -> None:
         self._batch_size = batch_size
 
@@ -15,8 +16,8 @@ class Data:
         )
 
     def _get_dataset(self, is_train=False):
-        return torchvision.datasets.MNIST(
-            root="./data",
+        return datasets.MNIST(
+            root=self.DATA_PATH,
             train=is_train,
             download=True,
             transform=self._get_transform(),
