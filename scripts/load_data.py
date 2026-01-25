@@ -1,9 +1,9 @@
 from qml_qtl_pytorch_mnist.data import DataProcessor
 
 if __name__ == "__main__":
-    dataloader = DataProcessor()
-    train_loader = dataloader.get_mnist_loader()
-    test_loader = dataloader.get_mnist_loader(is_train=True)
+    # ETL
+    processor = DataProcessor()
 
-    images, labels = next(iter(test_loader))
-    print(f"Image batch size: {images.shape}")
+    print("Processing data...")
+    processor.process_and_save()
+    print(f"Data processed and saved to {processor.PROCESSED_PATH}")
