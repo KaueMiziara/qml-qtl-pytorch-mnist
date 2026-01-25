@@ -2,7 +2,7 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 
 
-class Data:
+class MNISTDataLoader:
     DATA_PATH = "./data"
 
     def __init__(self, batch_size=64) -> None:
