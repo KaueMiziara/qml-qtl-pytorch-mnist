@@ -1,16 +1,17 @@
-from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
+from torchvision import datasets, transforms
 
 
-class MNISTDataLoader:
+class DataProcessor:
     DATA_PATH = "./data"
 
-    def __init__(self, batch_size=64) -> None:
+    def __init__(self, batch_size=4) -> None:
         self._batch_size = batch_size
 
     def get_mnist_loader(self, is_train=False) -> DataLoader:
+        dataset = self._get_dataset(is_train=is_train)
         return DataLoader(
-            self._get_dataset(is_train=is_train),
+            dataset,
             batch_size=self._batch_size,
             shuffle=True,
         )

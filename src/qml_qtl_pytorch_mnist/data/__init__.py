@@ -1,3 +1,3 @@
-from .dataloader import MNISTDataLoader
+from .data_processor import DataProcessor
 
-__all__ = ["MNISTDataLoader"]
+__all__ = ["DataProcessor"]
