@@ -15,8 +15,8 @@ class MNISTDataset(Dataset):
     ) -> None:
         """
         Args:
-            file_path: Path to the .pt file containing the data and targets.
-            transform: Optional torchvision transforms to apply to the data.
+            `file_path`: Path to the .pt file containing the data and targets.
+            `transform`: Optional torchvision transforms to apply to the data.
         """
         self.data, self.targets = load(file_path)
         self.transform = transform
@@ -32,7 +32,7 @@ class MNISTDataset(Dataset):
         Retrieves the image and label at the specified index.
 
         Args:
-            idx: The index of the item to retrieve.
+            `idx`: The index of the item to retrieve.
 
         Returns:
             A tuple containing the transformed image tensor and its label.
