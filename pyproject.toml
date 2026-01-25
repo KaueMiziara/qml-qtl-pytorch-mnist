@@ -3,9 +3,7 @@ name = "qml-qtl-pytorch-mnist"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-authors = [
-    { name = "Kaue Miziara", email = "kauemiziara@gmail.com" }
-]
+authors = [{ name = "Kaue Miziara", email = "kauemiziara@gmail.com" }]
 requires-python = ">=3.13"
 dependencies = [
     "matplotlib>=3.10.8",
@@ -17,3 +15,29 @@ dependencies = [
 [build-system]
 requires = ["uv_build>=0.9.22,<0.10.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = ["pre-commit>=4.5.1", "ruff>=0.14.14"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "N", "UP"]
+
+ignore = ["E741", "N806"]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"scripts/*.py" = ["T201"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.pyright]
+exclude = [".venv"]
+pythonVersion = "3.13"
+venvPath = "."
+venv = ".venv"
