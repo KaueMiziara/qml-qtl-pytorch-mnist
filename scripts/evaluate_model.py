@@ -4,7 +4,7 @@ import torch
 
 from qml_qtl_pytorch_mnist.data import DataLoader
 from qml_qtl_pytorch_mnist.metrics import Evaluator
-from qml_qtl_pytorch_mnist.model.classifier import ClassicalClassifier
+from qml_qtl_pytorch_mnist.models.classifier import ClassicalClassifier
 from qml_qtl_pytorch_mnist.visualization import Visualizer
 
 if __name__ == "__main__":
