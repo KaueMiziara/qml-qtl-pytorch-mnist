@@ -1,3 +1,5 @@
+from collections.abc import Callable
+
 from torch import Tensor, load
 from torch.utils.data import Dataset
 from torchvision import transforms
@@ -11,12 +13,12 @@ class MNISTDataset(Dataset):
     def __init__(
         self,
         file_path: str,
-        transform: transforms.Compose | None = None,
+        transform: Callable | None = None,
     ) -> None:
         """
         Args:
             `file_path`: Path to the .pt file containing the data and targets.
-            `transform`: Optional torchvision transforms to apply to the data.
+            `transform`: Optional callable transform to apply to the data.
         """
         self.data, self.targets = load(file_path)
         self.transform = transform
