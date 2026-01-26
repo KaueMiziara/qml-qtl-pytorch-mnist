@@ -50,7 +50,7 @@ if __name__ == "__main__":
         filename="classical_training_loss.png",
     )
 
-    saved_path = "./data/results/classical_podel.pth"
+    saved_path = "./data/results/classical_model.pth"
     torch.save(model.state_dict(), saved_path)
     print(f"Model saved to {saved_path}")
 
