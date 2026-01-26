@@ -1,7 +1,7 @@
 import torch.nn as nn
 from torch import Tensor
 
-from .backbone import ClassicalBackbone
+from .backbone.classical_backbone import ClassicalBackbone
 from .post_net import ClassicalPostNet
 from .pre_net import ClassicalPreNet
 
