@@ -51,7 +51,7 @@ class Evaluator:
                 labels = labels.float().view(-1, 1)
 
                 loss = criterion(outputs, labels)
-                total_loss += loss.items()
+                total_loss += loss.item()
 
                 predicted = (outputs > 0.5).float()
 
