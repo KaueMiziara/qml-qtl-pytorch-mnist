@@ -3,7 +3,7 @@ import os
 import torch
 
 from qml_qtl_pytorch_mnist.data import DataLoader
-from qml_qtl_pytorch_mnist.metrics.evaluation import Evaluator
+from qml_qtl_pytorch_mnist.metrics import Evaluator
 from qml_qtl_pytorch_mnist.model.classifier import ClassicalClassifier
 
 if __name__ == "__main__":
@@ -28,12 +28,12 @@ if __name__ == "__main__":
     print("\n" + "=" * LINE_LEN)
     print("\tMODEL EVALUATION")
     print("=" * LINE_LEN)
-    print(f"Accuracy:\t{metrics['accuracy']:.2%}")
-    print(f"Average Loss:\t{metrics['loss']:.4f}")
+    print(f"Accuracy:\t{metrics.accuracy:.2%}")
+    print(f"Average Loss:\t{metrics.loss:.4f}")
     print("-" * LINE_LEN)
     print("Confusion Matrix:")
-    print(f"True Positives  (1 as 1):\t{int(metrics['TP'])}")
-    print(f"True Negatives  (0 as 0):\t{int(metrics['TN'])}")
-    print(f"False Positives (0 as 1):\t{int(metrics['FP'])}")
-    print(f"False Negatives (1 as 0):\t{int(metrics['FN'])}")
+    print(f"True Positives  (1 as 1):\t{metrics.tp}")
+    print(f"True Negatives  (0 as 0):\t{metrics.tn}")
+    print(f"False Positives (0 as 1):\t{metrics.fp}")
+    print(f"False Negatives (1 as 0):\t{metrics.fn}")
     print("=" * LINE_LEN + "\n")

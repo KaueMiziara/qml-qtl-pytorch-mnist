@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader
 
+from .evaluation_metrics import EvaluationMetrics
+
 
 class Evaluator:
     """
@@ -19,7 +21,7 @@ class Evaluator:
     def evaluate(
         self,
         data_loader: DataLoader,
-    ) -> dict[str, float]:
+    ) -> EvaluationMetrics:
         """
         Runs inference on the provided data loader and computes metrics.
 
@@ -27,7 +29,7 @@ class Evaluator:
             `data_loader`: The DataLoader containing test data.
 
         Returns:
-            A dictionary containing:
+            An EvaluationMetrics object containing:
             - accuracy: The fraction of correct predictions.
             - loss: The average loss over the dataset.
             - TP, TN, FP, FN: Confusion matrix counts.
@@ -66,11 +68,11 @@ class Evaluator:
         avg_loss = total_loss / len(data_loader)
         accuracy = correct / total
 
-        return {
-            "accuracy": accuracy,
-            "loss": avg_loss,
-            "TP": true_positive,
-            "TN": true_negative,
-            "FP": false_positive,
-            "FN": false_negative,
-        }
+        return EvaluationMetrics(
+            accuracy=accuracy,
+            loss=avg_loss,
+            tp=int(true_positive),
+            tn=int(true_negative),
+            fp=int(false_positive),
+            fn=int(false_negative),
+        )
