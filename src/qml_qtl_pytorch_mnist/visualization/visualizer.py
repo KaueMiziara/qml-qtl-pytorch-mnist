@@ -3,6 +3,8 @@ import os
 import matplotlib.pyplot as plt
 from torch import Tensor
 
+from qml_qtl_pytorch_mnist.metrics.evaluation_metrics import EvaluationMetrics
+
 
 class Visualizer:
     """
@@ -92,3 +94,49 @@ class Visualizer:
         plt.savefig(saved_path)
         plt.close()
         print(f"Loss curve saved to: {saved_path}")
+
+    def save_confusion_matrix(
+        self,
+        metrics: EvaluationMetrics,
+        filename: str = "confusion_matrix.png",
+    ) -> None:
+        """
+        Plots and saves the confusion matrix as a heatmap.
+
+        Args:
+            `metrics`: The EvaluationMetrics dataclass instance.
+            `filename`: Output filename.
+        """
+        matrix = metrics.confusion_matrix
+
+        fig, ax = plt.subplots(figsize=(6, 6))
+
+        cax = ax.matshow(matrix, cmap="Blues", alpha=0.7)
+
+        for i in range(matrix.shape[0]):
+            for j in range(matrix.shape[1]):
+                ax.text(
+                    x=j,
+                    y=i,
+                    s=str(matrix[i, j]),
+                    va="center",
+                    ha="center",
+                    size="xx-large",
+                )
+
+        plt.xlabel("Predicted Label")
+        plt.ylabel("True Label")
+
+        ax.set_xticks([0, 1])
+        ax.set_yticks([0, 1])
+        ax.set_xticklabels(["0", "1"])
+        ax.set_yticklabels(["0", "1"])
+
+        plt.title(f"Confusion Matrix\nAcc: {metrics.accuracy:.2%}")
+
+        fig.colorbar(cax)
+
+        save_path = os.path.join(self.PLOTS_PATH, filename)
+        plt.savefig(save_path)
+        plt.close(fig)
+        print(f"Confusion maxtrix saved to: {save_path}")
