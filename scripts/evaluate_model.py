@@ -5,6 +5,7 @@ import torch
 from qml_qtl_pytorch_mnist.data import DataLoader
 from qml_qtl_pytorch_mnist.metrics import Evaluator
 from qml_qtl_pytorch_mnist.model.classifier import ClassicalClassifier
+from qml_qtl_pytorch_mnist.visualization import Visualizer
 
 if __name__ == "__main__":
     BATCH_SIZE = 4
@@ -37,3 +38,9 @@ if __name__ == "__main__":
     print(f"False Positives (0 as 1):\t{metrics.fp}")
     print(f"False Negatives (1 as 0):\t{metrics.fn}")
     print("=" * LINE_LEN + "\n")
+
+    visualizer = Visualizer()
+    visualizer.save_confusion_matrix(
+        metrics=metrics,
+        filename="classical_confusion_matrix.png",
+    )
