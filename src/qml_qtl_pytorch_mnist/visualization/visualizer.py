@@ -59,7 +59,7 @@ class Visualizer:
         plt.close(fig)
         print(f"Comparison plot saved to: {save_path}")
 
-    def save_loss_curse(
+    def save_loss_curve(
         self,
         epochs: list[int],
         losses: list[float],
