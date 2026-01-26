@@ -10,14 +10,12 @@ class Visualizer:
     """
 
     PLOTS_PATH: str = "./plots"
-    RESULTS_PATH: str = "./data/results"
 
     def __init__(self) -> None:
         """
         Initializes the Visualizer and ensures the output directories exist.
         """
         os.makedirs(self.PLOTS_PATH, exist_ok=True)
-        os.makedirs(self.RESULTS_PATH, exist_ok=True)
 
     def save_data_comparison(
         self,
@@ -60,3 +58,37 @@ class Visualizer:
         plt.savefig(save_path)
         plt.close(fig)
         print(f"Comparison plot saved to: {save_path}")
+
+    def save_loss_curse(
+        self,
+        epochs: list[int],
+        losses: list[float],
+        filename: str = "training_loss.png",
+    ) -> None:
+        """
+        Plots the training loss curve and saves it to the plots directory.
+
+        Args:
+            `epochs`: List of epoch numbers.
+            `losses`: List of loss values corresponding to the epochs.
+            `filename`: The name of the file to save.
+        """
+        plt.figure(figsize=(10, 6))
+        plt.plot(
+            epochs,
+            losses,
+            marker="o",
+            linestyle="-",
+            color="b",
+            label="Training Loss",
+        )
+        plt.title("Training Loss per Epoch")
+        plt.xlabel("Epoch")
+        plt.ylabel("Loss")
+        plt.grid(True)
+        plt.legend()
+
+        saved_path = os.path.join(self.PLOTS_PATH, filename)
+        plt.savefig(saved_path)
+        plt.close()
+        print(f"Loss curve saved to: {saved_path}")
