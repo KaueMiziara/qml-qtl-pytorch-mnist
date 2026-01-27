@@ -17,6 +17,7 @@ class ClassicalBackbone(BaseBackbone):
         self,
         input_dim: int = 4,
         output_dim: int = 2,
+        n_layers: int = 1,
     ) -> None:
         """
         Initializes the backbone layer.
@@ -24,8 +25,9 @@ class ClassicalBackbone(BaseBackbone):
         Args:
             `input_dim`: The number of input features (corresponding to input qubits).
             `output_dim`: The number of output measurements.
+            `n_layers`: Accepted for compatibility but ignored.
         """
-        super().__init__(input_dim, output_dim)
+        super().__init__(input_dim, output_dim, n_layers)
         self.linear = nn.Linear(input_dim, output_dim)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:

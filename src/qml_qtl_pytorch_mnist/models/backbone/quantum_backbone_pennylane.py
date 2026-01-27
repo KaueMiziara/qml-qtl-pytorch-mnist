@@ -30,15 +30,14 @@ class QuantumBackbonePennyLane(BaseBackbone):
             `output_dim`: Number of measured outputs (qubits to measure).
             `n_layers`: Number of layers in the StronglyEntanglingLayers ansatz.
         """
-        super().__init__(input_dim, output_dim)
-        self.n_layers = n_layers
+        super().__init__(input_dim, output_dim, n_layers)
 
         self.dev = qml.device("default.qubit", wires=self.n_qubits)
 
         self.qnode = qml.QNode(self._circuit, self.dev, interface="torch")
 
         weight_shapes: dict[str, tuple[int, int, int]] = {
-            "weights": (n_layers, self.input_dim, 3)
+            "weights": (self.n_layers, self.input_dim, 3)
         }
 
         self.qnn = qml.qnn.torch.TorchLayer(self.qnode, weight_shapes)
