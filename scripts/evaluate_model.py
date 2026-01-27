@@ -4,7 +4,8 @@ import torch
 
 from qml_qtl_pytorch_mnist.data import DataLoader
 from qml_qtl_pytorch_mnist.metrics import Evaluator
-from qml_qtl_pytorch_mnist.models.classifier import ClassicalClassifier
+from qml_qtl_pytorch_mnist.models.backbone import ClassicalBackbone
+from qml_qtl_pytorch_mnist.models.classifier import Classifier
 from qml_qtl_pytorch_mnist.visualization import Visualizer
 
 if __name__ == "__main__":
@@ -14,7 +15,7 @@ if __name__ == "__main__":
     loader_factory = DataLoader(batch_size=BATCH_SIZE)
     test_loader = loader_factory.get_data_loader(is_train=False)
 
-    model = ClassicalClassifier()
+    model = Classifier(backbone_cls=ClassicalBackbone)
 
     if os.path.exists(MODEL_PATH):
         model.load_state_dict(torch.load(MODEL_PATH))

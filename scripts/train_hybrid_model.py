@@ -3,7 +3,8 @@ import torch.nn as nn
 import torch.optim as optim
 
 from qml_qtl_pytorch_mnist.data import DataLoader
-from qml_qtl_pytorch_mnist.models.hybrid_classifier import HybridClassifier
+from qml_qtl_pytorch_mnist.models.backbone import QuantumBackbonePennyLane
+from qml_qtl_pytorch_mnist.models.classifier import Classifier
 from qml_qtl_pytorch_mnist.visualization import Visualizer
 
 if __name__ == "__main__":
@@ -14,7 +15,7 @@ if __name__ == "__main__":
     loader_factory = DataLoader(batch_size=BATCH_SIZE)
     train_loader = loader_factory.get_data_loader(is_train=True)
 
-    model = HybridClassifier(n_quantum_layers=2)
+    model = Classifier(n_quantum_layers=2, backbone_cls=QuantumBackbonePennyLane)
 
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     criterion = nn.BCELoss()
