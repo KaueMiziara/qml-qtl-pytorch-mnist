@@ -1,10 +1,11 @@
 import pennylane as qml
 import torch
-import torch.nn as nn
 from pennylane.measurements import MeasurementProcess
 
+from .base_backbone import BaseBackbone
 
-class QuantumBackbonePennyLane(nn.Module):
+
+class QuantumBackbonePennyLane(BaseBackbone):
     """
     A Quantum Neural Network (QNN) backbone using PennyLane.
 
@@ -29,10 +30,7 @@ class QuantumBackbonePennyLane(nn.Module):
             `output_dim`: Number of measured outputs (qubits to measure).
             `n_layers`: Number of layers in the StronglyEntanglingLayers ansatz.
         """
-        super().__init__()
-
-        self.n_qubits = input_dim
-        self.output_dim = output_dim
+        super().__init__(input_dim, output_dim)
         self.n_layers = n_layers
 
         self.dev = qml.device("default.qubit", wires=self.n_qubits)
@@ -40,7 +38,7 @@ class QuantumBackbonePennyLane(nn.Module):
         self.qnode = qml.QNode(self._circuit, self.dev, interface="torch")
 
         weight_shapes: dict[str, tuple[int, int, int]] = {
-            "weights": (n_layers, self.n_qubits, 3)
+            "weights": (n_layers, self.input_dim, 3)
         }
 
         self.qnn = qml.qnn.torch.TorchLayer(self.qnode, weight_shapes)
@@ -60,9 +58,8 @@ class QuantumBackbonePennyLane(nn.Module):
         Returns:
             Measurement processes, which the QNode converts to Tensors upon execution.
         """
-        qml.AngleEmbedding(inputs, wires=range(self.n_qubits), rotation="X")
-
-        qml.StronglyEntanglingLayers(weights, wires=range(self.n_qubits))
+        qml.AngleEmbedding(inputs, wires=range(self.input_dim), rotation="X")
+        qml.StronglyEntanglingLayers(weights, wires=range(self.input_dim))
 
         return [qml.expval(qml.PauliZ(i)) for i in range(self.output_dim)]
 

@@ -1,8 +1,10 @@
 import torch
 import torch.nn as nn
 
+from .base_backbone import BaseBackbone
 
-class ClassicalBackbone(nn.Module):
+
+class ClassicalBackbone(BaseBackbone):
     """
     Simulates the variational quantum circuit (Ansatz) using a classical linear layer.
 
@@ -23,7 +25,7 @@ class ClassicalBackbone(nn.Module):
             `input_dim`: The number of input features (corresponding to input qubits).
             `output_dim`: The number of output measurements.
         """
-        super().__init__()
+        super().__init__(input_dim, output_dim)
         self.linear = nn.Linear(input_dim, output_dim)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
