@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from .backbone.quantum_backbone_pennylane import QuantumBackbonePennyLane
+from .backbone import QuantumBackbonePennyLane
 from .post_net import ClassicalPostNet
 from .pre_net import ClassicalPreNet
 
