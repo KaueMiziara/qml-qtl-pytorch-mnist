@@ -20,7 +20,6 @@ class QuantumBackbonePennyLane(nn.Module):
         input_dim: int = 4,
         output_dim: int = 2,
         n_layers: int = 2,
-        seed: int = 42,
     ) -> None:
         """
         Initializes the PennyLane quantum layer.
@@ -29,15 +28,12 @@ class QuantumBackbonePennyLane(nn.Module):
             `input_dim`: Number of input features (must match number of qubits).
             `output_dim`: Number of measured outputs (qubits to measure).
             `n_layers`: Number of layers in the StronglyEntanglingLayers ansatz.
-            `seed`: Random seed for weight initialization consistency.
         """
         super().__init__()
 
         self.n_qubits = input_dim
         self.output_dim = output_dim
         self.n_layers = n_layers
-
-        torch.manual_seed(seed)
 
         self.dev = qml.device("default.qubit", wires=self.n_qubits)
 
@@ -50,7 +46,9 @@ class QuantumBackbonePennyLane(nn.Module):
         self.qnn = qml.qnn.torch.TorchLayer(self.qnode, weight_shapes)
 
     def _circuit(
-        self, inputs: torch.Tensor, weights: torch.Tensor
+        self,
+        inputs: torch.Tensor,
+        weights: torch.Tensor,
     ) -> list[MeasurementProcess]:
         """
         The internal quantum circuit logic.

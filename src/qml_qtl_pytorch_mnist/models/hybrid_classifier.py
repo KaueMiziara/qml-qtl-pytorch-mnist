@@ -19,13 +19,12 @@ class HybridClassifier(nn.Module):
        classification probability (0 or 1).
     """
 
-    def __init__(self, n_quantum_layers: int = 2, seed: int = 42) -> None:
+    def __init__(self, n_quantum_layers: int = 2) -> None:
         """
         Initializes the hybrid model components.
 
         Args:
             `n_quantum_layers`: Depth of the quantum ansatz (StronglyEntanglingLayers).
-            `seed`: Random seed for initializing quantum circuit weights.
         """
         super().__init__()
 
@@ -35,7 +34,6 @@ class HybridClassifier(nn.Module):
             input_dim=4,
             output_dim=2,
             n_layers=n_quantum_layers,
-            seed=seed,
         )
 
         self.post_net = ClassicalPostNet(input_dim=2)

@@ -14,7 +14,7 @@ if __name__ == "__main__":
     loader_factory = DataLoader(batch_size=BATCH_SIZE)
     train_loader = loader_factory.get_data_loader(is_train=True)
 
-    model = HybridClassifier(n_quantum_layers=2, seed=42)
+    model = HybridClassifier(n_quantum_layers=2)
 
     optimizer = optim.Adam(model.parameters(), lr=LEARNING_RATE)
     criterion = nn.BCELoss()
