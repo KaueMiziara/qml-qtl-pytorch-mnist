@@ -32,7 +32,7 @@ class QuantumBackbonePennyLane(BaseBackbone):
         """
         super().__init__(input_dim, output_dim, n_layers)
 
-        self.dev = qml.device("default.qubit", wires=self.n_qubits)
+        self.dev = qml.device("default.qubit", wires=self.input_dim)
 
         self.qnode = qml.QNode(self._circuit, self.dev, interface="torch")
 
