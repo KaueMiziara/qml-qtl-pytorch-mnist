@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-from .backbone import QuantumBackbonePennyLane
+from .backbone import BaseBackbone, QuantumBackbonePennyLane
 from .post_net import ClassicalPostNet
 from .pre_net import ClassicalPreNet
 
@@ -19,18 +19,23 @@ class HybridClassifier(nn.Module):
        classification probability (0 or 1).
     """
 
-    def __init__(self, n_quantum_layers: int = 2) -> None:
+    def __init__(
+        self,
+        n_quantum_layers: int = 2,
+        backbone_cls: type[BaseBackbone] = QuantumBackbonePennyLane,
+    ) -> None:
         """
         Initializes the hybrid model components.
 
         Args:
-            `n_quantum_layers`: Depth of the quantum ansatz (StronglyEntanglingLayers).
+            `n_quantum_layers`: Depth of the quantum ansatz.
+            `backbone_cls`: The class definition of the backbone to use.
         """
         super().__init__()
 
         self.pre_net = ClassicalPreNet(input_dim=16, output_dim=4)
 
-        self.backbone = QuantumBackbonePennyLane(
+        self.backbone = backbone_cls(
             input_dim=4,
             output_dim=2,
             n_layers=n_quantum_layers,
