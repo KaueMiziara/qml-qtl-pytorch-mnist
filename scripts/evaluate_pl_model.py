@@ -10,7 +10,7 @@ from qml_qtl_pytorch_mnist.visualization import Visualizer
 
 if __name__ == "__main__":
     BATCH_SIZE = 4
-    MODEL_PATH = "./data/results/hybrid_model.pth"
+    MODEL_PATH = "./data/results/pl_model.pth"
 
     loader_factory = DataLoader(batch_size=BATCH_SIZE)
     test_loader = loader_factory.get_data_loader(is_train=False)
@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
     LINE_LEN = 40
     print("\n" + "=" * LINE_LEN)
-    print("\tHYBRID MODEL EVALUATION")
+    print("\tPENNYLANE MODEL EVALUATION")
     print("=" * LINE_LEN)
     print(f"Accuracy:\t{metrics.accuracy:.2%}")
     print(f"Average Loss:\t{metrics.loss:.4f}")
@@ -43,5 +43,5 @@ if __name__ == "__main__":
     visualizer = Visualizer()
     visualizer.save_confusion_matrix(
         metrics=metrics,
-        filename="hybrid_confusion_matrix.png",
+        filename="pl_confusion_matrix.png",
     )

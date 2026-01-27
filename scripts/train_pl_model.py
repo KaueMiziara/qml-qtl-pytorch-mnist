@@ -8,7 +8,7 @@ from qml_qtl_pytorch_mnist.models.classifier import Classifier
 from qml_qtl_pytorch_mnist.visualization import Visualizer
 
 if __name__ == "__main__":
-    LEARNING_RATE = 0.001
+    LEARNING_RATE = 0.01
     EPOCHS = 15
     BATCH_SIZE = 4
 
@@ -49,10 +49,10 @@ if __name__ == "__main__":
     visualizer.save_loss_curve(
         epochs=list(range(1, EPOCHS + 1)),
         losses=epoch_losses,
-        filename="hybrid_training_loss.png",
+        filename="pl_training_loss.png",
     )
 
-    save_path = "./data/results/hybrid_model.pth"
+    save_path = "./data/results/pl_model.pth"
     torch.save(model.state_dict(), save_path)
     print(f"Hybrid model saved to {save_path}")
 
