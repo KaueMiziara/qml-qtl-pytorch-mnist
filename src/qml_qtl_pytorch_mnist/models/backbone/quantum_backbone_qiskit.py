@@ -3,6 +3,7 @@ from qiskit.circuit.library import efficient_su2
 from qiskit.primitives import StatevectorEstimator
 from qiskit.quantum_info import SparsePauliOp
 from qiskit_machine_learning.connectors import TorchConnector
+from qiskit_machine_learning.gradients import ParamShiftEstimatorGradient
 from qiskit_machine_learning.neural_networks import EstimatorQNN
 from torch import Tensor
 
@@ -54,6 +55,8 @@ class QuantumBackboneQiskit(BaseBackbone):
 
         estimator = StatevectorEstimator()
 
+        gradient = ParamShiftEstimatorGradient(estimator)
+
         self.qnn_net = EstimatorQNN(
             circuit=qc,
             estimator=estimator,
@@ -61,6 +64,7 @@ class QuantumBackboneQiskit(BaseBackbone):
             input_params=list(input_params),
             weight_params=list(ansatz.parameters),
             input_gradients=True,
+            gradient=gradient,
         )
 
         self.qnn = TorchConnector(self.qnn_net)
