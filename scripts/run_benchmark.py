@@ -150,8 +150,9 @@ def generate_plots(df_history: pd.DataFrame, df_results: pd.DataFrame):
 
 
 if __name__ == "__main__":
-    EPOCHS = 3
-    SUBSET_SIZE = 200  # Set to None for full run
+    EPOCHS = 6
+    LEARNING_RATE = 0.01
+    SUBSET_SIZE = None  # Set to None for full run
     BATCH_SIZE = 4
 
     loader_factory = MNISTDataLoader(batch_size=BATCH_SIZE)
@@ -196,7 +197,7 @@ if __name__ == "__main__":
             hist, acc, duration = train_and_log(
                 model_name=name,
                 backbone_cls=backbone,
-                learning_rate=0.01,
+                learning_rate=LEARNING_RATE,
                 train_loader=train_loader,
                 test_loader=test_loader,
                 epochs=EPOCHS,
