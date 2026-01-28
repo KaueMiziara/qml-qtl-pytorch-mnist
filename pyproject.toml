@@ -1,6 +1,6 @@
 [project]
 name = "qml-qtl-pytorch-mnist"
-version = "3.0"
+version = "1.0"
 description = "PyTorch and PennyLane/Qiskit integration test"
 readme = "README.md"
 authors = [{ name = "Kaue Miziara", email = "kauemiziara@gmail.com" }]
